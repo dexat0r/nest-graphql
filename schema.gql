@@ -7,6 +7,7 @@ type Product {
   name: String!
   slug: String!
   price: Float!
+  categoryId: Float!
   category: Category!
 }
 

@@ -1,5 +1,5 @@
 import { Field, ObjectType } from "@nestjs/graphql";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 import { Category } from "./category.entity";
 import { Order } from "./order.entity";
 import { User } from "./user.entity";
@@ -8,7 +8,7 @@ import { User } from "./user.entity";
 @Entity()
 export class Product {
     @Field()
-    @PrimaryGeneratedColumn()
+    @PrimaryColumn('int')
     id: number
 
     @Field()
@@ -23,7 +23,11 @@ export class Product {
     @Column('int')
     price: number
 
+    @Field()
+    @Column('int')
+    categoryId:number
+
     @Field(type => Category)
-    @ManyToOne(() => Category, category => category.products)
+    @ManyToOne(() => Category, category => category.products, {onDelete: "CASCADE", onUpdate: "CASCADE"})
     category: Category
 }
